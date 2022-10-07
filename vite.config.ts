@@ -1,12 +1,12 @@
+import react from '@vitejs/plugin-react'
 import { rmSync } from 'fs'
 import path from 'path'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import electron from 'vite-electron-plugin'
 import { customStart } from 'vite-electron-plugin/plugin'
 import pkg from './package.json'
 
-rmSync(path.join(__dirname, 'dist-electron'), { recursive: true, force: true })
+rmSync(path.join(__dirname, 'dist'), { recursive: true, force: true })
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,8 +19,10 @@ export default defineConfig({
   plugins: [
     react(),
     electron({
+      outDir: 'dist',
       include: [
         'electron',
+        'main',
         'preload',
       ],
       transformOptions: {
